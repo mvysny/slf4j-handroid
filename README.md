@@ -23,6 +23,17 @@ while not logging debug messages during production. You can achieve this by addi
 HandroidLoggerAdapter.DEBUG = BuildConfig.DEBUG;
 ```
 
+Then, replace all calls to Android built-in `Log` class by slf4j logging, for example:
+
+```java
+public class YourClass {
+  private static final Logger log = LoggerFactory.getLogger(YourClass.class);
+  public void foo() {
+    log.error("Something failed", new RuntimeException("something"));
+  }
+}
+```
+
 ## Which issues does this library solve?
 
 * Shows DEBUG messages during the development
