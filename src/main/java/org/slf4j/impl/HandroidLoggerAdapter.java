@@ -21,7 +21,10 @@ import java.io.StringWriter;
 public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
 
     /**
-     * Put this into your android.app.Application's constructor:
+     * True if the debug messages should be logged, false if not. Defaults to false.
+     * <p></p>
+     * Good practice is to log debug during development, while not logging debug messages during production.
+     * Put this into your android.app.Application's constructor to achieve this:
      * <pre>
      * HandroidLoggerAdapter.DEBUG = BuildConfig.DEBUG;
      * </pre>
