@@ -49,7 +49,7 @@ class AndroidLoggerFactory implements ILoggerFactory {
         String tag = loggerNameToTag(name);
         Logger logger = loggerMap.get(tag);
         if (logger == null) {
-            Logger newInstance = new AndroidLoggerAdapter(tag);
+            Logger newInstance = new HandroidLoggerAdapter(tag);
             Logger oldInstance = loggerMap.putIfAbsent(tag, newInstance);
             logger = oldInstance == null ? newInstance : oldInstance;
         }

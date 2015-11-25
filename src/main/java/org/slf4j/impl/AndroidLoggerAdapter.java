@@ -540,11 +540,11 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
-    private boolean isLoggable(int priority) {
+    protected boolean isLoggable(int priority) {
         return Log.isLoggable(name, priority);
     }
 
-    private void logInternal(int priority, String message, Throwable throwable) {
+    protected void logInternal(int priority, String message, Throwable throwable) {
         if (throwable != null) {
             message += '\n' + Log.getStackTraceString(throwable);
         }
