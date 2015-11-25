@@ -1,0 +1,62 @@
+defaultTasks 'clean', 'build', 'publishToMavenLocal'
+
+project.ext.slf4jVersion='1.7.13'
+
+apply plugin: 'java'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+    test {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+}
+ 
+dependencies {
+    provided 'com.google.android:android:4.1.1.4'
+    provided 'org.jetbrains:annotations:13.0'
+    testCompile 'junit:junit:4.11'
+    compile "org.slf4j:slf4j-api:${project.slf4jVersion}"
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'org.slf4j'
+            artifactId 'slf4j-handroid'
+            version project.slf4jVersion
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
+apply plugin: 'idea'
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
