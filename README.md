@@ -13,7 +13,13 @@ This will install the `slf4j-handroid` library into your local m2 repository. Th
 just add the following gradle dependency to your Android project:
 
 ```
-compile 'org.slf4j:slf4j-handroid:1.7.13'
+repositories {
+  ...
+  mavenLocal()
+}
+dependencies {
+  compile 'org.slf4j:slf4j-handroid:1.7.13'
+}
 ```
 
 Then, just update the `HandroidLoggerAdapter.DEBUG` field to appropriate value. Good practice is to log debug during development,
