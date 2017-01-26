@@ -1,6 +1,6 @@
 defaultTasks 'clean', 'build', 'publishToMavenLocal'
 
-project.ext.slf4jVersion='1.7.13'
+project.ext.slf4jVersion='1.7.22'
 
 apply plugin: 'java'
 sourceCompatibility = 1.7
