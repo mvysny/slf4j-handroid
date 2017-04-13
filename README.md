@@ -9,7 +9,7 @@ Features
 * Shows DEBUG messages during the development: http://jira.qos.ch/browse/SLF4J-314
 * Does not hide any exceptions, even exceptions hidden by buggy Android Studio 1.5. Fixes https://code.google.com/p/android/issues/detail?id=195164 https://code.google.com/p/android/issues/detail?id=194446 http://stackoverflow.com/questions/28897239/log-e-does-not-print-the-stack-trace-of-unknownhostexception
 * Supports Crashlytics; when Crashlytics is enabled for your project handroid will
-  log using `Crashlytics.log` and `Crashlytics.logException` instead.
+  log using `Crashlytics.log()` and `Crashlytics.logException()` instead.
 
 ## Using with your project
 
