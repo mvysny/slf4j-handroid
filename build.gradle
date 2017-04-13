@@ -11,24 +11,9 @@ repositories {
     jcenter()
 }
 
-configurations {
-    provided
-}
-
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
-        runtimeClasspath += configurations.provided
-    }
-    test {
-        compileClasspath += configurations.provided
-        runtimeClasspath += configurations.provided
-    }
-}
- 
 dependencies {
-    provided 'com.google.android:android:4.1.1.4'
-    provided 'org.jetbrains:annotations:13.0'
+    compileOnly 'com.google.android:android:4.1.1.4'
+    compileOnly 'org.jetbrains:annotations:13.0'
     testCompile 'junit:junit:4.11'
     compile "org.slf4j:slf4j-api:${project.slf4jVersion}"
 }
@@ -54,9 +39,10 @@ publishing {
     }
 }
 
-apply plugin: 'idea'
-idea {
-    module {
-        scopes.PROVIDED.plus += [configurations.provided]
+// for Travis to record failures: http://stackoverflow.com/questions/28614865/how-to-read-test-result-reports-on-travis-ci/28617954#28617954
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
     }
 }
