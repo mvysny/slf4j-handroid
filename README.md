@@ -1,6 +1,13 @@
-# slf4j-android upgraded
+[![Build Status](https://travis-ci.org/mvysny/slf4j-handroid.svg?branch=master)](https://travis-ci.org/mvysny/slf4j-handroid)
+
+# slf4j-android fixed
 
 Tired of slf4j-android not logging your debug messages? Tired of android logger hiding your UnknownHostException or other exceptions not appearing? Use this instead of the built-in slf4j-android logger.
+
+Features
+
+* Shows DEBUG messages during the development: http://jira.qos.ch/browse/SLF4J-314
+* Does not hide any exceptions, even exceptions hidden by buggy Android Studio 1.5. Fixes https://code.google.com/p/android/issues/detail?id=195164 https://code.google.com/p/android/issues/detail?id=194446 http://stackoverflow.com/questions/28897239/log-e-does-not-print-the-stack-trace-of-unknownhostexception
 
 ## Using with your project
 
@@ -39,9 +46,3 @@ public class YourClass {
   }
 }
 ```
-
-## Which issues does this library solve?
-
-* Shows DEBUG messages during the development: http://jira.qos.ch/browse/SLF4J-314
-* Does not hide any exceptions, even exceptions hidden by buggy Android Studio 1.5. Fixes https://code.google.com/p/android/issues/detail?id=195164 https://code.google.com/p/android/issues/detail?id=194446 http://stackoverflow.com/questions/28897239/log-e-does-not-print-the-stack-trace-of-unknownhostexception
-
