@@ -1,6 +1,15 @@
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+}
+
 defaultTasks 'clean', 'build', 'publishToMavenLocal'
 
-project.ext.slf4jVersion='1.7.25'
+group 'sk.baka.slf4j'
+version '1.7.25'
+ext.local = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    ext.local.load(project.rootProject.file('local.properties').newDataInputStream())
+}
 
 apply plugin: 'java'
 sourceCompatibility = 1.7
@@ -15,7 +24,7 @@ dependencies {
     compileOnly 'com.google.android:android:4.1.1.4'
     compileOnly 'org.jetbrains:annotations:13.0'
     testCompile 'junit:junit:4.11'
-    compile "org.slf4j:slf4j-api:${project.slf4jVersion}"
+    compile "org.slf4j:slf4j-api:$version"
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
@@ -28,9 +37,9 @@ apply plugin: 'maven-publish'
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId 'org.slf4j'
+            groupId project.group
             artifactId 'slf4j-handroid'
-            version project.slf4jVersion
+            version project.version
             from components.java
             artifact sourceJar {
                 classifier "sources"
@@ -44,5 +53,22 @@ test {
     testLogging {
         events "failed"
         exceptionFormat "full"
+    }
+}
+
+bintray {
+    user = local.getProperty('bintray.user')
+    key = local.getProperty('bintray.key')
+    pkg {
+        repo = 'sk.baka'
+        name = 'slf4j-handroid'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/mvysny/slf4j-handroid'
+        publish = true
+        publications = ['mavenJava']
+        version {
+            name = project.version
+            released = new Date()
+        }
     }
 }
