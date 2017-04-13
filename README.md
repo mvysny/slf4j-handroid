@@ -25,7 +25,7 @@ repositories {
   mavenLocal()
 }
 dependencies {
-  compile 'org.slf4j:slf4j-handroid:1.7.13'
+  compile 'org.slf4j:slf4j-handroid:1.7.25'
 }
 ```
 
