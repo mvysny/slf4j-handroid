@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * This class handles three issues:
@@ -30,6 +32,33 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
      * </pre>
      */
     public static boolean DEBUG = false;
+
+    /**
+     * If true, the log messages are routed to the Crashlytics library. The value of this property is auto-detected - if
+     * <code>com.crashlytics.android.Crashlytics</code> class is present, this is set to true. You can however override that as you see fit.
+     * <p></p>
+     * Warning: only exception stacktraces logged as WARNING or ERROR are logged into Crashlytics. See {@link #logInternal(int, String, Throwable)}
+     * for details.
+     */
+    public static boolean LOG_TO_CRASHLYTICS;
+    private static Method crashlyticsLog;
+    private static Method crashlyticsLogException;
+    static {
+        try {
+            final Class<?> crashlyticsClass = Class.forName("com.crashlytics.android.Crashlytics");
+            try {
+                // yes I know, reflection is slower. Yet crashlytics doesn't seem to provide jars, only aar which I can't link against.
+                crashlyticsLog = crashlyticsClass.getDeclaredMethod("log", int.class, String.class, String.class);
+                crashlyticsLogException = crashlyticsClass.getDeclaredMethod("logException", Throwable.class);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+            LOG_TO_CRASHLYTICS = true;
+            System.out.println("slf4j-handroid: enabling integration with Crashlytics, override by setting HandroidLoggerAdapter.LOG_TO_CRASHLYTICS to false");
+        } catch (ClassNotFoundException e) {
+            LOG_TO_CRASHLYTICS = false;
+        }
+    }
 
     HandroidLoggerAdapter(String tag) {
         super(tag);
@@ -59,7 +88,19 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
             message += '\n' + getStackTraceString(throwable);
         }
         message = postprocessMessage(message).trim();
-        Log.println(priority, name, message);
+        if (LOG_TO_CRASHLYTICS) {
+            // this also internally calls Log.println(), so no need to do it ourselves
+            try {
+                crashlyticsLog.invoke(null, priority, name, message);
+                if (priority >= Log.WARN && throwable != null) {
+                    crashlyticsLogException.invoke(null, throwable);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            Log.println(priority, name, message);
+        }
     }
 
     @NotNull
