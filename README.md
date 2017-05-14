@@ -20,6 +20,13 @@ dependencies {
 }
 ```
 
+If this won't work, add the jcenter repo:
+```groovy
+repositories {
+    jcenter()
+}
+```
+
 Then, just update the `HandroidLoggerAdapter.DEBUG` field to appropriate value. Good practice is to log debug during development,
 while not logging debug messages during production. You can achieve this by adding a constructor to your android.app.Application and:
 
