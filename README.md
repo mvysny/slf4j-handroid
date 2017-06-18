@@ -17,7 +17,7 @@ Features
 slf4j-handroid is now at jcenter, so all you have to do is to add this to your project dependencies:
 ```groovy
 dependencies {
-  compile 'sk.baka.slf4j:slf4j-handroid:1.7.25-2'
+  compile 'sk.baka.slf4j:slf4j-handroid:1.7.25-3'
 }
 ```
 
