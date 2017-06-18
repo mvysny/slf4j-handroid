@@ -63,7 +63,7 @@ and will show a full class name including the package, prefixed by `MyApp:`, as 
 06-18 13:23:36.237 23900-23900/sk.baka.aedictkanjidrawpractice I/MyApp:sk.baka.aedictkanjidrawpractice.MainActivity: Launched MainActivity for kanji 政 with stroke count 9
 ```
 
-Thus, it is easy to filter out the log (just search for `"MyApp."` instead for that horrible `"s*.b*.h*.w*.Foo"`).
+Thus, it is easy to filter out the log (just filter your log case-sensitive by `"MyApp:"` instead for that horrible `"s*.b*.h*.w*.Foo"`).
 
 Just make sure that the app name is 10 character long tops (since the log name limit is only 23 characters),
 otherwise your class names will get chopped.
