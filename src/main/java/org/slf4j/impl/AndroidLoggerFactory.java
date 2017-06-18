@@ -76,10 +76,9 @@ class AndroidLoggerFactory implements ILoggerFactory {
         }
 
         final int length = loggerName.length();
-        if (length <= TAG_MAX_LENGTH || HandroidLoggerAdapter.ANDROID_API_LEVEL >= 24) {
-            if (HandroidLoggerAdapter.APP_NAME != null) {
-                loggerName = HandroidLoggerAdapter.APP_NAME + ":" + loggerName;
-            }
+        // don't handle APIs 24 and higher specially - in reality they ALSO CAN'T HANDLE tags longer than 23 characters.
+        // see https://github.com/mvysny/slf4j-handroid/issues/2 for details.
+        if (length <= TAG_MAX_LENGTH && HandroidLoggerAdapter.APP_NAME == null) {
             return loggerName;
         }
 

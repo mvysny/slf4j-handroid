@@ -54,16 +54,8 @@ Since you have configured the `APP_NAME`, the log messages will look like this:
 06-18 13:05:35.937 17994-17994/sk.baka.aedictkanjidrawpractice I/MyApp:SodIndex: Parsed SOD header with 6576 kanjis in 18ms
 06-18 13:05:36.011 17994-17994/sk.baka.aedictkanjidrawpractice I/MyApp:MainActivity: Launched MainActivity for kanji 政 with stroke count 9
 ```
-
-(Except when you're running on phone with Android SDK 24 or higher, in that case the log name is not limited to 23 characters
-and will show a full class name including the package, prefixed by `MyApp:`, as follows:
-
-```
-06-18 13:23:36.189 23900-23900/sk.baka.aedictkanjidrawpractice I/MyApp:sk.baka.aedictkanjidrawpractice.util.android.SodIndex: Parsed SOD header with 6576 kanjis in 24ms
-06-18 13:23:36.237 23900-23900/sk.baka.aedictkanjidrawpractice I/MyApp:sk.baka.aedictkanjidrawpractice.MainActivity: Launched MainActivity for kanji 政 with stroke count 9
-```
-
-Thus, it is easy to filter out the log (just filter your log case-sensitive by `"MyApp:"` instead for that horrible `"s*.b*.h*.w*.Foo"`).
-
 Just make sure that the app name is 10 character long tops (since the log name limit is only 23 characters),
 otherwise your class names will get chopped.
+
+Unfortunately I can't take advantage of the fact that the tag text is no longer constrained to 23 characters on Androids
+24 and newer, because in reality that is not true: see bug #2 for details.
