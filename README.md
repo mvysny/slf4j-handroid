@@ -2,7 +2,8 @@
 
 # slf4j-android fixed
 
-Tired of slf4j-android not logging your debug messages? Tired of android logger hiding your UnknownHostException or other exceptions not appearing? Use this instead of the built-in slf4j-android logger.
+Tired of slf4j-android not logging your debug messages? Tired of android logger hiding your `UnknownHostException`
+or other exceptions not appearing? Use this fork of the standard `slf4j-android` logger.
 
 Features
 
