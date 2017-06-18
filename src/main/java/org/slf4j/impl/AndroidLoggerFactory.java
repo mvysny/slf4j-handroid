@@ -77,13 +77,16 @@ class AndroidLoggerFactory implements ILoggerFactory {
 
         final int length = loggerName.length();
         if (length <= TAG_MAX_LENGTH || HandroidLoggerAdapter.ANDROID_API_LEVEL >= 24) {
+            if (HandroidLoggerAdapter.APP_NAME != null) {
+                loggerName = HandroidLoggerAdapter.APP_NAME + ":" + loggerName;
+            }
             return loggerName;
         }
 
         if (HandroidLoggerAdapter.APP_NAME != null) {
             final int lastDot = loggerName.lastIndexOf('.');
             final String className = lastDot < 0 ? loggerName : loggerName.substring(lastDot + 1, length);
-            String name = HandroidLoggerAdapter.APP_NAME + "." + className;
+            String name = HandroidLoggerAdapter.APP_NAME + ":" + className;
             if (name.length() > TAG_MAX_LENGTH) {
                 name = name.substring(0, TAG_MAX_LENGTH - 1) + '*';
             }

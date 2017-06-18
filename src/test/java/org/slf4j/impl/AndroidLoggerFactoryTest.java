@@ -88,22 +88,22 @@ public class AndroidLoggerFactoryTest {
     @Test
     public void testAndroid24() {
         HandroidLoggerAdapter.ANDROID_API_LEVEL = 24;
-        HandroidLoggerAdapter.APP_NAME = "ignored";
-        assertEquals("org.test.package.TestClass", AndroidLoggerFactory.loggerNameToTag("org.test.package.TestClass"));
-        assertEquals("o.test.project.package.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.package.TestClass"));
-        assertEquals("o.test.project.p.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.p.TestClass"));
-        assertEquals("org.slf4j.impl.AndroidLoggerFactory", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
-        assertEquals("IAmAVeryLongLoggerNameAndShouldBeTruncated", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldBeTruncated"));
+        HandroidLoggerAdapter.APP_NAME = "MyApp";
+        assertEquals("MyApp:org.test.package.TestClass", AndroidLoggerFactory.loggerNameToTag("org.test.package.TestClass"));
+        assertEquals("MyApp:o.test.project.package.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.package.TestClass"));
+        assertEquals("MyApp:o.test.project.p.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.p.TestClass"));
+        assertEquals("MyApp:org.slf4j.impl.AndroidLoggerFactory", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
+        assertEquals("MyApp:IAmAVeryLongLoggerNameAndShouldBeTruncated", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldBeTruncated"));
     }
 
 
     @Test
     public void testAppName() {
         HandroidLoggerAdapter.APP_NAME = "MyApp";
-        assertEquals("MyApp.TestClass", AndroidLoggerFactory.loggerNameToTag("org.test.package.TestClass"));
-        assertEquals("MyApp.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.package.TestClass"));
-        assertEquals("MyApp.TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.p.TestClass"));
-        assertEquals("MyApp.AndroidLoggerFac*", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
-        assertEquals("MyApp.IAmAVeryLongLogg*", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldBeTruncated"));
+        assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("org.test.package.TestClass"));
+        assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.package.TestClass"));
+        assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.p.TestClass"));
+        assertEquals("MyApp:AndroidLoggerFac*", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
+        assertEquals("MyApp:IAmAVeryLongLogg*", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldBeTruncated"));
     }
 }
