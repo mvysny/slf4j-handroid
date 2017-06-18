@@ -58,4 +58,4 @@ Just make sure that the app name is 10 character long tops (since the log name l
 otherwise your class names will get chopped.
 
 Unfortunately I can't take advantage of the fact that the tag text is no longer constrained to 23 characters on Androids
-24 and newer, because in reality that is not true: see bug #2 for details.
+24 and newer, because in reality that is not true: see issue #2 for details.
