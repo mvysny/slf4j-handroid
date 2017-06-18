@@ -5,7 +5,7 @@ plugins {
 defaultTasks 'clean', 'build', 'publishToMavenLocal'
 
 group 'sk.baka.slf4j'
-version '1.7.25'
+version '1.7.26'
 ext.local = new Properties()
 if (project.rootProject.file('local.properties').exists()) {
     ext.local.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -24,7 +24,7 @@ dependencies {
     compileOnly 'com.google.android:android:4.1.1.4'
     compileOnly 'org.jetbrains:annotations:13.0'
     testCompile 'junit:junit:4.11'
-    compile "org.slf4j:slf4j-api:$version"
+    compile "org.slf4j:slf4j-api:1.7.25"
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
