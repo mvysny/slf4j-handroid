@@ -75,9 +75,19 @@ class AndroidLoggerFactory implements ILoggerFactory {
             return ANONYMOUS_TAG;
         }
 
-        int length = loggerName.length();
-        if (length <= TAG_MAX_LENGTH) {
+        final int length = loggerName.length();
+        if (length <= TAG_MAX_LENGTH || HandroidLoggerAdapter.ANDROID_API_LEVEL >= 24) {
             return loggerName;
+        }
+
+        if (HandroidLoggerAdapter.APP_NAME != null) {
+            final int lastDot = loggerName.lastIndexOf('.');
+            final String className = lastDot < 0 ? loggerName : loggerName.substring(lastDot + 1, length);
+            String name = HandroidLoggerAdapter.APP_NAME + "." + className;
+            if (name.length() > TAG_MAX_LENGTH) {
+                name = name.substring(0, TAG_MAX_LENGTH - 1) + '*';
+            }
+            return name;
         }
 
         int tagLength = 0;

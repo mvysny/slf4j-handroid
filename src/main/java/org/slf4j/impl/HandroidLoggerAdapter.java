@@ -34,6 +34,20 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
     public static boolean DEBUG = false;
 
     /**
+     * Set this to non-null app name (preferably max 10 characters), to have <code>AedDict.KanjidicQuery</code> instead of
+     * <code>s*.b*.a*.u*.KanjidicQuery</code> in your code.
+     * <p/>
+     * Note that when {@link #ANDROID_API_LEVEL} is 24 or higher, this is completely ignored and the full class name (including the package) is always
+     * logged.
+     */
+    public static String APP_NAME = null;
+
+    /**
+     * Set this to 24 or higher, to notify Handroid that Android finally dropped the retarded 23 character limit on logger name.
+     */
+    public static int ANDROID_API_LEVEL = 1;
+
+    /**
      * If true, the log messages are routed to the Crashlytics library. The value of this property is auto-detected - if
      * <code>com.crashlytics.android.Crashlytics</code> class is present, this is set to true. You can however override that as you see fit.
      * <p></p>
