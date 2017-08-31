@@ -33,7 +33,6 @@ while not logging debug messages during production. You can achieve this by addi
 
 ```
 HandroidLoggerAdapter.DEBUG = BuildConfig.DEBUG;
-HandroidLoggerAdapter.ANDROID_API_LEVEL = Build.VERSION.SDK_INT;
 HandroidLoggerAdapter.APP_NAME = "MyApp";
 ```
 

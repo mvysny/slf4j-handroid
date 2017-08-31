@@ -34,17 +34,17 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
     public static boolean DEBUG = false;
 
     /**
-     * Set this to non-null app name (preferably max 10 characters), to have <code>AedDict.KanjidicQuery</code> instead of
-     * <code>s*.b*.a*.u*.KanjidicQuery</code> in your code.
-     * <p/>
-     * Note that when {@link #ANDROID_API_LEVEL} is 24 or higher, this is completely ignored and the full class name (including the package) is always
-     * logged.
+     * Set this to non-null app name (preferably max 10 characters), to have <code>MyApp:MainActivity</code> instead of
+     * <code>s*.b*.a*.u*.k*.MainAct*</code> in your code.
      */
     public static String APP_NAME = null;
 
     /**
      * Set this to 24 or higher, to notify Handroid that Android finally dropped the retarded 23 character limit on logger name.
+     * @deprecated Doesn't really work and some 24+ Android phones still crash with logger names longer than 23 characters. See
+     * <a href="https://github.com/mvysny/slf4j-handroid/issues/3">https://github.com/mvysny/slf4j-handroid/issues/3</a> for more details. Ignored, don't use.
      */
+    @Deprecated
     public static int ANDROID_API_LEVEL = 1;
 
     /**
