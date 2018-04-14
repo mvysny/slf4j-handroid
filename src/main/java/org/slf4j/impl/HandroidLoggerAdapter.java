@@ -48,31 +48,34 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
     public static int ANDROID_API_LEVEL = 1;
 
     /**
-     * If true, the log messages are routed to the Crashlytics library. The value of this property is auto-detected - if
-     * <code>com.crashlytics.android.Crashlytics</code> class is present, this is set to true. You can however override that as you see fit.
+     * If called, the log messages are routed to the Crashlytics library. You must call this AFTER Crashlytics is initialized in your code;
+     * see https://github.com/mvysny/slf4j-handroid/issues/5 for more details. Example of proper initialization in your App:
+     * <code><pre>
+     *     &#64;Override
+     *     public void onCreate() {
+     *         super.onCreate();
+     *         Fabric.with(this, new Crashlytics());
+     *         HandroidLoggerAdapter.enableLoggingToCrashlytics();
+     *         ...
+     * </pre></code>
      * <p></p>
      * Warning: only exception stacktraces logged as WARNING or ERROR are logged into Crashlytics. See {@link #logInternal(int, String, Throwable)}
      * for details.
+     * @throws RuntimeException if the Crashlytics library is not on your classpath.
      */
-    public static boolean LOG_TO_CRASHLYTICS;
-    private static Method crashlyticsLog;
-    private static Method crashlyticsLogException;
-    static {
+    public static void enableLoggingToCrashlytics() {
         try {
             final Class<?> crashlyticsClass = Class.forName("com.crashlytics.android.Crashlytics");
-            try {
-                // yes I know, reflection is slower. Yet crashlytics doesn't seem to provide jars, only aar which I can't link against.
-                crashlyticsLog = crashlyticsClass.getDeclaredMethod("log", int.class, String.class, String.class);
-                crashlyticsLogException = crashlyticsClass.getDeclaredMethod("logException", Throwable.class);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-            LOG_TO_CRASHLYTICS = true;
-            System.out.println("slf4j-handroid: enabling integration with Crashlytics, override by setting HandroidLoggerAdapter.LOG_TO_CRASHLYTICS to false");
-        } catch (ClassNotFoundException e) {
-            LOG_TO_CRASHLYTICS = false;
+            // yes I know, reflection is slower. Yet crashlytics doesn't seem to provide jars, only aar which I can't link against.
+            crashlyticsLog = crashlyticsClass.getDeclaredMethod("log", int.class, String.class, String.class);
+            crashlyticsLogException = crashlyticsClass.getDeclaredMethod("logException", Throwable.class);
+            System.out.println("slf4j-handroid: enabling integration with Crashlytics");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
+    private static Method crashlyticsLog;
+    private static Method crashlyticsLogException;
 
     HandroidLoggerAdapter(String tag) {
         super(tag);
@@ -102,7 +105,7 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
             message += '\n' + getStackTraceString(throwable);
         }
         message = postprocessMessage(message).trim();
-        if (LOG_TO_CRASHLYTICS) {
+        if (crashlyticsLog != null) {
             // this also internally calls Log.println(), so no need to do it ourselves
             try {
                 crashlyticsLog.invoke(null, priority, name, message);

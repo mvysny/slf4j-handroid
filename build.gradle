@@ -5,7 +5,7 @@ plugins {
 defaultTasks 'clean', 'build', 'publishToMavenLocal'
 
 group 'sk.baka.slf4j'
-version '1.7.26-1-SNAPSHOT'
+version '1.7.27-SNAPSHOT'
 ext.local = new Properties()
 if (project.rootProject.file('local.properties').exists()) {
     ext.local.load(project.rootProject.file('local.properties').newDataInputStream())
