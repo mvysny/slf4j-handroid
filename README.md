@@ -80,7 +80,7 @@ Unfortunately automatic detection of Crashlytics does not work because of https:
 
 Licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-Copyright (c) 2004-2015 QOS.ch and Martin Vysny
+Copyright (c) 2004-2018 QOS.ch and Martin Vysny
 
 All rights reserved.
 

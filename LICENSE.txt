@@ -1,5 +1,5 @@
 
- Copyright (c) 2004-2017 QOS.ch and Martin Vysny
+ Copyright (c) 2004-2018 QOS.ch and Martin Vysny
  All rights reserved.
 
  Permission is hereby granted, free  of charge, to any person obtaining
