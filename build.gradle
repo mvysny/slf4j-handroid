@@ -62,7 +62,7 @@ bintray {
     pkg {
         repo = 'sk.baka'
         name = 'slf4j-handroid'
-        licenses = ['Apache-2.0']
+        licenses = ['MIT']
         vcsUrl = 'https://github.com/mvysny/slf4j-handroid'
         publish = true
         publications = ['mavenJava']
