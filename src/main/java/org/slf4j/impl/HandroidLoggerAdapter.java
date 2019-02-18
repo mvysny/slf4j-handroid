@@ -62,11 +62,8 @@ public class HandroidLoggerAdapter extends AndroidLoggerAdapter {
     public static String APP_NAME = null;
 
     /**
-     * Set this to 24 or higher, to notify Handroid that Android finally dropped the retarded 23 character limit on logger name.
-     * @deprecated Doesn't really work and some 24+ Android phones still crash with logger names longer than 23 characters. See
-     * <a href="https://github.com/mvysny/slf4j-handroid/issues/3">https://github.com/mvysny/slf4j-handroid/issues/3</a> for more details. Ignored, don't use.
+     * Set this to 26 or higher, to notify Handroid that Android finally dropped the retarded 23 character limit on logger name.
      */
-    @Deprecated
     public static int ANDROID_API_LEVEL = 1;
 
     /**

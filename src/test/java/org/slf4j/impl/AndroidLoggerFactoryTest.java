@@ -84,18 +84,15 @@ public class AndroidLoggerFactoryTest {
         assertEquals("..", AndroidLoggerFactory.loggerNameToTag(".."));
     }
 
-    /**
-     * Fucking Android 25 FAILS AS WELL: https://github.com/mvysny/slf4j-handroid/issues/2
-     */
     @Test
-    public void testAndroid24() {
-        HandroidLoggerAdapter.ANDROID_API_LEVEL = 24;
+    public void testAndroid26() {
+        HandroidLoggerAdapter.ANDROID_API_LEVEL = 26;
         HandroidLoggerAdapter.APP_NAME = "MyApp";
         assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("org.test.package.TestClass"));
         assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.package.TestClass"));
         assertEquals("MyApp:TestClass", AndroidLoggerFactory.loggerNameToTag("o.test.project.p.TestClass"));
-        assertEquals("MyApp:AndroidLoggerFac*", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
-        assertEquals("MyApp:IAmAVeryLongLogg*", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldBeTruncated"));
+        assertEquals("MyApp:AndroidLoggerFactory", AndroidLoggerFactory.loggerNameToTag("org.slf4j.impl.AndroidLoggerFactory"));
+        assertEquals("MyApp:IAmAVeryLongLoggerNameAndShouldNotBeTruncated", AndroidLoggerFactory.loggerNameToTag("IAmAVeryLongLoggerNameAndShouldNotBeTruncated"));
     }
 
     @Test
