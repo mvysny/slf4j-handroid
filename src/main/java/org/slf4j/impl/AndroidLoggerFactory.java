@@ -38,8 +38,14 @@ import java.util.concurrent.ConcurrentMap;
  */
 class AndroidLoggerFactory implements ILoggerFactory {
     static final String ANONYMOUS_TAG = "null";
+
+    /**
+     * Returns maximum tag name for Android. Androids 25 and earlier would fail if the tag name was longer than 23 characters.
+     * See https://github.com/mvysny/slf4j-handroid/issues/2 for more details.
+     * @return 23 on Androids 25 and lower, 1000 on Androids 26 and higher.
+     */
     private static int getTagMaxLength() {
-        return HandroidLoggerAdapter.ANDROID_API_LEVEL >= 26 ? Integer.MAX_VALUE : 23;
+        return HandroidLoggerAdapter.ANDROID_API_LEVEL >= 26 ? 1000 : 23;
     }
 
     private final ConcurrentMap<String, Logger> loggerMap = new ConcurrentHashMap<String, Logger>();
